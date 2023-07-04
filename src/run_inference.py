@@ -3,13 +3,14 @@
 import SimpleITK as sitk
 import os
 
-input_dir = '/input/'
-path_img = os.path.join(input_dir,'{}_hrT2.nii.gz')
-path_pred = '/output/{}_Label.nii.gz'
+input_dir = '/home/nw22/Documents/CrossModa/CrossModa23_DataPreparation/FinalizedData/crossmoda23_validation/T2_MRI/'
+path_img = os.path.join(input_dir,'{}_T2.nii.gz')
+path_pred = '/home/nw22/Documents/CrossModa/output/{}.nii.gz'
 
-list_case = [k.split('_hrT2')[0] for k in os.listdir(input_dir)]
+list_case = [k.split('_T2')[0] for k in os.listdir(input_dir)]
 
 for case in list_case:
+    print(path_img.format(case))
     t2_img = sitk.ReadImage(path_img.format(case))
 
     ##
@@ -17,10 +18,11 @@ for case in list_case:
     ##
 
     # using SimpleITK to do binary thresholding between 100 - 10000
-    vs_pred = sitk.BinaryThreshold(t2_img, lowerThreshold=400, upperThreshold=500)
+    intrameatal_pred = sitk.BinaryThreshold(t2_img, lowerThreshold=400, upperThreshold=500)
+    extrameatal_pred = sitk.BinaryThreshold(t2_img, lowerThreshold=600, upperThreshold=700)
     cochlea_pred = sitk.BinaryThreshold(t2_img, lowerThreshold=900, upperThreshold=1100)
 
-    result = vs_pred + 2*cochlea_pred
+    result = extrameatal_pred + 2*intrameatal_pred + 3*cochlea_pred
 
     # save the segmentation mask
     sitk.WriteImage(result, path_pred.format(case))
