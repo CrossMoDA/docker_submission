@@ -3,14 +3,13 @@
 import SimpleITK as sitk
 import os
 
-input_dir = '/home/nw22/Documents/CrossModa/CrossModa23_DataPreparation/FinalizedData/crossmoda23_validation/T2_MRI/'
+input_dir = '/input/'
 path_img = os.path.join(input_dir,'{}_T2.nii.gz')
-path_pred = '/home/nw22/Documents/CrossModa/output/{}.nii.gz'
+path_pred = '/output/{}.nii.gz'
 
 list_case = [k.split('_T2')[0] for k in os.listdir(input_dir)]
 
 for case in list_case:
-    print(path_img.format(case))
     t2_img = sitk.ReadImage(path_img.format(case))
 
     ##
