@@ -1,5 +1,5 @@
-# crossMoDA Challenge - MICCAI 2021
-Example docker container for the crossMoDA Challenge organized as part of MICCAI 2021. The script simply thresholds hrT2 images to "predict" the VS and cochlea.
+# crossMoDA Challenge - MICCAI 2023
+Example docker container for the crossMoDA Challenge organized as part of MICCAI 2023. The script simply thresholds hrT2 images to "predict" the intra-/extra-meatal VS and cochlea.
 
 ## Build the Docker image
 `Dockerfile` contains all the information used to create the Docker container. 
